@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
 
 	private boolean debug = false;
-	
+	 
 	@Override
     public void onEnable() {
 		this.getLogger().info("Loading CircadianRhythm.jar");
