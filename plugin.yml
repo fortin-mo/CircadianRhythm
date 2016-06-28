@@ -1,5 +1,5 @@
 main: lowbrain.main.Main
-name: Timedelay
+name: CircadianRhythm
 version: 1.0
 author: Marc-Olivier Fortin
 description: Setup time
