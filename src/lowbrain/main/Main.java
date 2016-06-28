@@ -27,6 +27,7 @@ public class Main extends JavaPlugin {
                 config.addDefault("updateInterval", (Object)300);
                 config.addDefault("hoursPerDay", (Object)12);
                 config.addDefault("debug", (Object)false);
+                config.addDefault("hoursOffset", (Object)0);
                 config.options().copyDefaults(true);
                 this.saveConfig();
             } else {
@@ -42,7 +43,6 @@ public class Main extends JavaPlugin {
 
             @Override
             public void run() {
-                Main.this.getLogger().info("Ajusting time");
                 Main.this.syncTime();
             }
         }, 0, Long.parseLong(updateInterval) * 20);
@@ -57,7 +57,7 @@ public class Main extends JavaPlugin {
     	int hpd = this.getConfig().getInt("hoursPerDay");
     	double timespeed = (24/hpd);
         Calendar d = Calendar.getInstance();
-        int h = d.get(11);
+        int h = d.get(11) + this.getConfig().getInt("hoursOffset");
         h = (int) (h * timespeed);
         if(h > 24)h -= 24;
         int m = d.get(12);
@@ -66,7 +66,9 @@ public class Main extends JavaPlugin {
         	m -= 60;
         	h += 1;
         }
-        this.getLogger().info("Time : " + h + "hrs " + m + " min");
+        if(this.getConfig().getBoolean("debug")){
+        	this.getLogger().info("Time : " + h + "hrs " + m + " min");
+        }
         long ticks = 1000 * h + (m *= 16) + 18000;
         ((World)this.getServer().getWorlds().get(0)).setTime(ticks);
     }
