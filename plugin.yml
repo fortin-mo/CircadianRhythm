@@ -1,0 +1,5 @@
+main: lowbrain.main.Main
+name: Timedelay
+version: 1.0
+author: Marc-Olivier Fortin
+description: Setup time
