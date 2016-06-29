@@ -1,4 +1,4 @@
-main: lowbrain.main.Main
+main: lowbrain.circadianrhythm.Main
 name: CircadianRhythm
 version: 1.0
 author: Marc-Olivier Fortin

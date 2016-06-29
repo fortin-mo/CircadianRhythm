@@ -1,4 +1,4 @@
-package lowbrain.main;
+package lowbrain.circadianrhythm;
 
 import java.io.File;
 import java.util.Calendar;
