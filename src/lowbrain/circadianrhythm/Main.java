@@ -10,8 +10,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
-
-	private boolean debug = false;
 	 
 	@Override
     public void onEnable() {
