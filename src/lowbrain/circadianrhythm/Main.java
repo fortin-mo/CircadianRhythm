@@ -5,12 +5,22 @@ import java.util.Calendar;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * Main plugin class
+ * @author lowbrain
+ *
+ */
 public class Main extends JavaPlugin {
 	 
+	/**
+	 * called when the plugin is initially enabled
+	 */
 	@Override
     public void onEnable() {
 		this.getLogger().info("Loading CircadianRhythm.jar");
@@ -51,6 +61,36 @@ public class Main extends JavaPlugin {
        
     }
     
+    /**
+	 * Called when the plugin receice a command
+	 */
+	@Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    	if (cmd.getName().equalsIgnoreCase("circadianrhythm") || cmd.getName().equalsIgnoreCase("cr")) { 
+    		if(args.length > 0 && args[0].equalsIgnoreCase("reload")){
+    			Bukkit.getServer().getScheduler().cancelTasks(this);
+    			
+    			this.reloadConfig();
+    			
+    			String updateInterval = this.getConfig().getString("updateInterval");
+    	        Bukkit.getServer().getScheduler().runTaskTimer((Plugin)this, new Runnable(){
+
+    	            @Override
+    	            public void run() {
+    	                Main.this.syncTime();
+    	            }
+    	        }, 0, Long.parseLong(updateInterval) * 20);
+    			
+    			sender.sendMessage("CircadianRhythm reloaded !!");
+    			return true;
+    		}
+    	} 
+    	return false;
+    }
+    
+	/**
+	 * sync the time with the current config
+	 */
     public void syncTime() {
     	int hpd = this.getConfig().getInt("hoursPerDay");
     	double timespeed = (24/hpd);
