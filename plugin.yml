@@ -4,8 +4,8 @@ version: 1.1.1
 author: Marc-Olivier Fortin
 description: Setup time
 commands:
-   CircadianRhythm:
+   circadianrhythm.reload:
       description: Reload config file
-      usage: /<command> reload
-      aliases: cr
+      usage: /CircadianRhythm reload or cr.reload
+      aliases: cr.reload
       

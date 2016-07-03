@@ -64,26 +64,24 @@ public class Main extends JavaPlugin {
     /**
 	 * Called when the plugin receice a command
 	 */
-	@Override
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-    	if (cmd.getName().equalsIgnoreCase("circadianrhythm") || cmd.getName().equalsIgnoreCase("cr")) { 
-    		if(args.length > 0 && args[0].equalsIgnoreCase("reload")){
-    			Bukkit.getServer().getScheduler().cancelTasks(this);
-    			
-    			this.reloadConfig();
-    			
-    			String updateInterval = this.getConfig().getString("updateInterval");
-    	        Bukkit.getServer().getScheduler().runTaskTimer((Plugin)this, new Runnable(){
+    	if (cmd.getName().equalsIgnoreCase("circadianrhythm.reload") || cmd.getName().equalsIgnoreCase("cr.reload")) { 
+			Bukkit.getServer().getScheduler().cancelTasks(this);
+			
+			this.reloadConfig();
+			
+			String updateInterval = this.getConfig().getString("updateInterval");
+	        Bukkit.getServer().getScheduler().runTaskTimer((Plugin)this, new Runnable(){
 
-    	            @Override
-    	            public void run() {
-    	                Main.this.syncTime();
-    	            }
-    	        }, 0, Long.parseLong(updateInterval) * 20);
-    			
-    			sender.sendMessage("CircadianRhythm reloaded !!");
-    			return true;
-    		}
+	            @Override
+	            public void run() {
+	                Main.this.syncTime();
+	            }
+	        }, 0, Long.parseLong(updateInterval) * 20);
+			
+			sender.sendMessage("CircadianRhythm reloaded !!");
+			return true;
     	} 
     	return false;
     }
@@ -97,13 +95,16 @@ public class Main extends JavaPlugin {
         Calendar d = Calendar.getInstance();
         int h = d.get(11) + this.getConfig().getInt("hoursOffset");
         h = (int) (h * timespeed);
-        if(h > 24)h -= 24;
+        int nbDays = (int) Math.floor(h / 24);
+        h -= nbDays * 24;
+        
         int m = d.get(12);
         m = (int) (m * timespeed);
-        if(m > 60){
-        	m -= 60;
-        	h += 1;
-        }
+        
+        int nbHours = (int) Math.floor(m / 60);
+        m -= nbHours * 60;
+        h += nbHours;
+        
         if(this.getConfig().getBoolean("debug")){
         	this.getLogger().info("Time : " + h + "hrs " + m + " min");
         }
