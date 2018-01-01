@@ -1,0 +1,11 @@
+main: lowbrain.circadianrhythm.Main
+name: CircadianRhythm
+version: 1.2
+author: Marc-Olivier Fortin
+description: Setup time
+commands:
+   circadianrhythm.reload:
+      description: Reload config file
+      usage: /CircadianRhythm reload or cr.reload
+      aliases: cr.reload
+      

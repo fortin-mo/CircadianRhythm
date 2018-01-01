@@ -1,0 +1,4 @@
+updateInterval: 300
+hoursPerDay: 12
+debug: false
+hoursOffset: 0
